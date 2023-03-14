@@ -8,14 +8,14 @@ public class ConcHTTPAsk {
 				ServerSocket HTTPSocket = new ServerSocket(Integer.parseInt(args[0]));
 				while(true){
 				Socket socket = HTTPSocket.accept();
-				(new Thread(new MyRunnable(socket))).start();}
+				(new Thread(new HTTPRequest(socket))).start();}
 			}catch(IOException ex){
 				System.out.println("error");
 			}
     }
 }
 
-class MyRunnable implements Runnable{
+class HTTPRequest implements Runnable{
     private boolean shutdown = false;             // True if client should shutdown connection
     private Integer timeout = null;			     // Max time to wait for data from server (null if no limit)
 	private Integer limit = null;			     // Max no. of bytes to receive from server (null if no limit)
@@ -26,7 +26,7 @@ class MyRunnable implements Runnable{
 	private Socket socket;
 	private String toDisplay = null;
 	
-	public MyRunnable(Socket socket){
+	public HTTPRequest(Socket socket){
 		this.socket = socket;
 	}
 
